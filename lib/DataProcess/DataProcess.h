@@ -93,6 +93,9 @@ typedef struct
     MQTTTopicType_t orange;
     MQTTTopicType_t red;
     MQTTTopicType_t cancel; 
+    MQTTTopicType_t firmwareUpdateByID;
+    MQTTTopicType_t firmwareUpdateByLID;
+    MQTTTopicType_t firmwareUpdateByCID;
 }MQTTEventTopicType_t;
 
 
@@ -131,7 +134,7 @@ typedef struct
 
 typedef struct
 {
-    char IP[16];
+    char IP[16]; // IP
     char subnet[16];
     char gateway[16];
     char pDNS[16];
@@ -151,37 +154,45 @@ typedef struct
     WiFiAttributeType_t AP; 
 }WiFiType_t;
 
+typedef struct
+{
+    uint8_t active : 1;
+    unsigned long time; // Time of the delay
+    unsigned long duration; // Duration of the event will occur
+}TimeType_t;
+
 typedef struct 
 {
-    char mof;
+    char mof; 
     char mode;
     char IPAddress[49];
     char LAT[17];
     char LON[17];  
-    IPType_T _static;
+    IPType_T _static; // Device Static IP
     uint32_t counter;
-    String MAC;
-    String SSID;
-    String Password;
+    String MAC; 
+    // String SSID; 
+    // String Password;
     BatteryType_t Battery;
-    IDType_t ID;
-    WiFiType_t WiFi; 
-    DuressType_t duress;
+    IDType_t ID; // Device ID list (ID,Company,Location)
+    WiFiType_t WiFi; // Device wifi credentials 
+    DuressType_t duress; 
     DuressType_t fall;
-    NameType_t Name;
-    MQTTType_t mqtt;
-    WiFiRelayBoardType_T relay;
-    ButtonType_T green;
-    ButtonType_T orange;
-    ButtonType_T red;
-    ButtonType_T cancel;
-
+    // NameType_t Name;
+    MQTTType_t mqtt; // MQTT topics and payloads
+    WiFiRelayBoardType_T relay; // Relay Configuration
+    // ButtonType_T green;
+    // ButtonType_T orange;
+    // ButtonType_T red;
+    // ButtonType_T cancel;
+    TimeType_t hb; // hearbeat delay publish
 }DeviceType_t;
 
 
 
 
 extern int strcnt(char *s);
+
 /* remove a specific character from a string*/
 void strrmchr(char *s, int c);
 
@@ -198,8 +209,8 @@ void dataProcess(char *s, char (*d)[49]);
  
 void printInformation(DeviceType_t *info);
 void sortInformation(DeviceType_t *info, char (*d)[49]);
-/* SAVE CONFIGURATION FUNCTIONS*/
 
+/* SAVE CONFIGURATION FUNCTIONS*/
 
 void databaseInit(void);
 

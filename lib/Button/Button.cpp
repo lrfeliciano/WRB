@@ -56,10 +56,13 @@ Button::Button(uint8_t b1, uint8_t b2, uint8_t b3, uint8_t b4):
 
 void Button::begin(void)
 {
+    /* Set button pin as input mode */
     pinMode(button_1_pin, INPUT);
     pinMode(button_2_pin, INPUT);
     pinMode(button_3_pin, INPUT);
     pinMode(button_4_pin, INPUT);
+
+    /* Attach interrupt pin and mode */
     attachInterrupt(digitalPinToInterrupt(button_1_pin), button1Interrupt, RISING);
     attachInterrupt(digitalPinToInterrupt(button_2_pin), button2Interrupt, RISING);
     attachInterrupt(digitalPinToInterrupt(button_3_pin), button3Interrupt, FALLING);
@@ -155,7 +158,7 @@ uint8_t Button::Button4Read(void)
 void Button::Button2InvertState(void)
 {
   detachInterrupt(button_2_pin);
-  delay(100);
+  vTaskDelay(100);
   if(button_2_state)
   {
     attachInterrupt(digitalPinToInterrupt(button_2_pin), button2Interrupt, FALLING);
@@ -175,7 +178,7 @@ uint8_t Button::Button2State(void)
 void Button::Button3InvertState(void)
 {
   detachInterrupt(button_3_pin);
-  delay(100);
+  vTaskDelay(100);
   if(button_3_state)
   {
     attachInterrupt(digitalPinToInterrupt(button_3_pin), button3Interrupt, FALLING);

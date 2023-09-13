@@ -209,74 +209,73 @@ void sortInformation(DeviceType_t *info, char (*d)[49])
     Serial.println("\r\n");
     Serial.println("--------------Sort Information----------------");  
     
-    if (strcmp(d[2], "*"))
-    {
-        strcpy(info->ID.watch, d[2]);
+    if( d[2][0] != '*' ) //(strcmp(d[2], "*"))
+    { 
+        strcpy(info->ID.watch, d[2]);  
     }
 
-    if (strcmp(d[3], "*"))
+    if( d[3][0] != '*' ) // (strcmp(d[3], "*"))
     {
         strcpy(info->mqtt.IP, d[3]);
     }
 
-    if (strcmp(d[4], "*"))
+    if( d[4][0] != '*' ) // (strcmp(d[4], "*"))
     {
         strcpy(info->ID.company, d[4]);
     }
 
-    if (strcmp(d[5], "*"))
-    {
-        // printf("idlocation-d[5]: %c",d[5]); 
+    if( d[5][0] != '*' ) // (strcmp(d[5], "*"))
+    { 
         strcpy(info->ID.location, d[5]);
     }
 
     for (int index = 0; index < 5; index++)
     {
 
-        if (strcmp(d[index + 6], "*"))
+        if ( d[index + 6][0] != '*' ) //(strcmp(d[index + 6], "*"))
         {
             strcpy(info->WiFi.Credentials[index].SSID, d[index + 6]);
         }
 
-        if (strcmp(d[index + 11], "*"))
+        if ( d[index + 11][0] != '*' ) //(strcmp(d[index + 11], "*"))
         {
             strcpy(info->WiFi.Credentials[index].Password, d[index + 11]);
         }
     }
 
-    if (strcmp(d[16], "*"))
+    if( d[16][0] != '*' ) // (strcmp(d[16], "*"))
     {
         strcpy(info->_static.pDNS, d[16]); 
     }
 
-    if (strcmp(d[17], "*"))
+    if( d[17][0] != '*' ) // (strcmp(d[17], "*"))
     {
         strcpy(info->_static.sDNS, d[17]);  
     }
 
-    if (strcmp(d[18], "*"))
+    if( d[18][0] != '*' ) // (strcmp(d[18], "*"))
     { 
         strcpy(info->_static.IP, d[18]); 
     }
 
-    if (strcmp(d[19], "*"))
+    if( d[19][0] != '*' ) // (strcmp(d[19], "*"))
     {
         // strcpy(info->Name.Last, d[19]);
         strcpy(info->_static.state, d[19]);
         // info->_static.state = d[19][0];
     }
 
-    if (strcmp(d[20], "*"))
+    if( d[20][0] != '*' ) // (strcmp(d[20], "*"))
     {
         strcpy(info->_static.subnet, d[20]);
     }
 
-    if (strcmp(d[21], "*"))
+    if( d[21][0] != '*' ) // (strcmp(d[21], "*"))
     {
         strcpy(info->_static.gateway, d[21]);
     }
 
-    if (strcmp(d[22], "*"))
+    if( d[22][0] != '*' ) // (strcmp(d[22], "*"))
     {
         strcpy(info->LON, d[22]);
     }
@@ -296,7 +295,7 @@ void sortInformation(DeviceType_t *info, char (*d)[49])
         info->fall.state = d[25][0];
     }
 
-    if (strcmp(d[26], "*"))
+    if( d[26][0] != '*' ) // (strcmp(d[26], "*"))
     {
         strcpy(info->Battery.Level, d[26]);
     }
@@ -311,27 +310,27 @@ void sortInformation(DeviceType_t *info, char (*d)[49])
         info->mode = d[28][0];
     }
     
-    if (strcmp(d[29], "*"))
+    if( d[29][0] != '*' ) // (strcmp(d[29], "*"))
     {
         strrmchr(d[29],',');
         strcpy(info->relay.green.group, d[29]);
     }
-    if (strcmp(d[30], "*"))
+    if( d[30][0] != '*' ) // (strcmp(d[30], "*"))
     {
         strrmchr(d[30],',');
         strcpy(info->relay.orange.group, d[30]);
     }
-    if (strcmp(d[31], "*"))
+    if( d[31][0] != '*' ) // (strcmp(d[31], "*"))
     {
         strrmchr(d[31],',');
         strcpy(info->relay.red.group, d[31]);
     }
-    if (strcmp(d[32], "*"))
+    if( d[32][0] != '*' ) // (strcmp(d[32], "*"))
     {
         strrmchr(d[32],',');
         strcpy(info->relay.cancel.group, d[32]);
     }
-    if (strcmp(d[33], "*"))
+    if( d[33][0] != '*' ) // (strcmp(d[33], "*"))
     {
         info->relay.green.offTime =  atoi(d[33]);
         if(info->relay.green.offTime > 255)
@@ -339,7 +338,7 @@ void sortInformation(DeviceType_t *info, char (*d)[49])
             info->relay.green.offTime = 0xFF;
         }
     }
-    if (strcmp(d[34], "*"))
+    if( d[34][0] != '*' ) // (strcmp(d[34], "*"))
     {
         info->relay.orange.offTime =  atoi(d[34]);
         if(info->relay.orange.offTime > 255)
@@ -347,7 +346,7 @@ void sortInformation(DeviceType_t *info, char (*d)[49])
             info->relay.orange.offTime = 0xFF;
         }
     }
-    if (strcmp(d[35], "*"))
+    if( d[35][0] != '*' ) // (strcmp(d[35], "*"))
     {
         info->relay.red.offTime =  atoi(d[35]);
         if(info->relay.red.offTime > 255)
@@ -355,7 +354,7 @@ void sortInformation(DeviceType_t *info, char (*d)[49])
             info->relay.red.offTime = 0xFF;
         }
     }
-    if (strcmp(d[36], "*"))
+    if( d[36][0] != '*' ) // (strcmp(d[36], "*"))
     {
         info->relay.cancel.offTime =  atoi(d[36]);
         if(info->relay.cancel.offTime > 255)
@@ -367,8 +366,8 @@ void sortInformation(DeviceType_t *info, char (*d)[49])
             info->relay.cancel.offTime = 0x01;
         }
     }
-    if (strcmp(d[37], "*"))
-    {
+    // if (strcmp(d[37], "*"))
+    // {
         if (d[37][0] != '*')
         {
             info->relay.cancel.onState =  d[37][0] - 0x30;
@@ -386,8 +385,8 @@ void sortInformation(DeviceType_t *info, char (*d)[49])
         {
             info->relay.green.onState =  d[37][3] - 0x30;
         }
-    }
-    if (strcmp(d[38], "*"))
+    // }
+    if( d[38][0] != '*' ) // (strcmp(d[38], "*"))
     {
         strcpy(info->mqtt.port, d[38]);
     }
@@ -453,9 +452,13 @@ void clearDeviceInformation(void)
 
 void getDeviceInformation(DeviceType_t *info)
 {
+    
     Serial.println("\r\n");
     Serial.println("--------------GET DEVICE INFO-----------------"); 
+    /* Opend database */
     deviceDatabaseOpen(); 
+
+    /* Copy all the data from the database */
     strcpy(info->ID.watch, deviceDatabase["wa_idn"]);
     strcpy(info->_static.IP, deviceDatabase["sta_ip"]);
     strcpy(info->_static.state, deviceDatabase["staips"]);
@@ -502,6 +505,7 @@ void setDeviceInformation(DeviceType_t *info)
     Serial.println("\r\n");
     Serial.println("--------------SET DEVICE INTO-----------------");  
     
+    /* Store all the information to JSON */
     /* Device ID */
     deviceDatabase["wa_idn"] = info->ID.watch;
     deviceDatabase["co_idn"] = info->ID.company;
@@ -547,6 +551,8 @@ void setDeviceInformation(DeviceType_t *info)
     char relayState[5];
     sprintf(relayState,"%d%d%d%d", info->relay.green.onState, info->relay.orange.onState, info->relay.red.onState, info->relay.cancel.onState);
     deviceDatabase["rly_os"] = relayState;
+
+    /* Save all the information to the database */
     deviceDatabaseSave();
     Serial.println("----------------------------------------------\r\n"); 
 }

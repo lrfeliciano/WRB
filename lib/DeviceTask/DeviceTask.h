@@ -17,8 +17,8 @@
  
 #include <DeviceTaskPriorities.h> 
 #include <DeviceTimer.h>
-
-#define FW_VERSION  (float)3.9  
+/*NOTE: Retaining the 3.9 version as base firmware */
+#define FW_VERSION  (float)3.9 
 #define SHOW_CORE 
 #define DEVICE_TYPE "WIFI"
 

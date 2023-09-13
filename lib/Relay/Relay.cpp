@@ -9,7 +9,7 @@ Relay::Relay(void)
     pinMode(relay4Pin, OUTPUT);
 
 #ifdef RELAY_DEBUG
-    delay(2000);
+    vTaskDelay(2000);
     Serial.begin(115200);
     Serial.println("Relay(void);");
 #endif
@@ -23,7 +23,7 @@ Relay::Relay(uint8_t relay1, uint8_t relay2, uint8_t relay3, uint8_t relay4)
     pinMode(relay3Pin, OUTPUT);
     pinMode(relay4Pin, OUTPUT);
 #ifdef RELAY_DEBUG
-    delay(2000);
+    vTaskDelay(2000);
     Serial.begin(115200);
     Serial.println("Relay(uint8_t relay1, uint8_t relay2, uint8_t relay3, uint8_t relay4); ");
 #endif
@@ -133,22 +133,22 @@ void Relay::pulse(RelayType_t relayPin)
     {
     case 1:
         digitalWrite(relay1Pin, HIGH);
-        delay(PULSE_DELAY);
+        vTaskDelay(PULSE_DELAY);
         digitalWrite(relay1Pin, LOW);
         break;
     case 2:
         digitalWrite(relay2Pin, HIGH);
-        delay(PULSE_DELAY);
+        vTaskDelay(PULSE_DELAY);
         digitalWrite(relay2Pin, LOW);
         break;
     case 3:
         digitalWrite(relay3Pin, HIGH);
-        delay(PULSE_DELAY);
+        vTaskDelay(PULSE_DELAY);
         digitalWrite(relay3Pin, LOW);
         break;
     case 4:
         digitalWrite(relay4Pin, HIGH);
-        delay(PULSE_DELAY);
+        vTaskDelay(PULSE_DELAY);
         digitalWrite(relay4Pin, LOW);
         break;
     default:
@@ -170,7 +170,7 @@ void Relay::offDelay(RelayType_t relayPin)
         digitalWrite(relay1Pin, relay1OnState);
         if (relay1Delay)
         {
-            delay(relay1Delay);
+            vTaskDelay(relay1Delay);
             digitalWrite(relay1Pin, !relay1OnState);
         }
     }
@@ -179,7 +179,7 @@ void Relay::offDelay(RelayType_t relayPin)
         digitalWrite(relay2Pin, relay2OnState);
         if (relay2Delay)
         {
-            delay(relay2Delay);
+            vTaskDelay(relay2Delay);
             digitalWrite(relay2Pin, !relay2OnState);
         }
     }
@@ -188,7 +188,7 @@ void Relay::offDelay(RelayType_t relayPin)
         digitalWrite(relay3Pin, relay3OnState);
         if (relay3Delay)
         {
-            delay(relay3Delay);
+            vTaskDelay(relay3Delay);
             digitalWrite(relay3Pin, !relay3OnState);
         }
     }
@@ -197,7 +197,7 @@ void Relay::offDelay(RelayType_t relayPin)
         digitalWrite(relay4Pin, relay4OnState);
         if (relay4Delay)
         {
-            delay(relay4Delay);
+            vTaskDelay(relay4Delay);
             digitalWrite(relay4Pin, !relay4OnState);
         }
     }
@@ -214,7 +214,7 @@ void Relay::greenActivate(RelayType_t relayPin)
     // digitalWrite(relay1Pin, relay1OnState);
     if (relay1Delay)
     {
-        delay(relay1Delay);
+        vTaskDelay(relay1Delay);
         digitalWrite(relay1Pin, !relay1OnState);
     }
 
@@ -230,7 +230,7 @@ void Relay::orangeActivate(RelayType_t relayPin)
     // digitalWrite(relay2Pin, relay2OnState);
     if (relay2Delay)
     {
-        delay(relay2Delay);
+        vTaskDelay(relay2Delay);
         digitalWrite(relay2Pin, !relay2OnState);
     }
 
@@ -246,7 +246,7 @@ void Relay::redActivate(RelayType_t relayPin)
     // digitalWrite(relay3Pin, relay3OnState);
     if (relay3Delay)
     {
-        delay(relay3Delay);
+        vTaskDelay(relay3Delay);
         digitalWrite(relay3Pin, !relay3OnState);
     }
 
