@@ -65,8 +65,8 @@ void Button::begin(void)
     /* Attach interrupt pin and mode */
     attachInterrupt(digitalPinToInterrupt(button_1_pin), button1Interrupt, RISING);
     attachInterrupt(digitalPinToInterrupt(button_2_pin), button2Interrupt, RISING);
-    attachInterrupt(digitalPinToInterrupt(button_3_pin), button3Interrupt, FALLING);
-    attachInterrupt(digitalPinToInterrupt(button_4_pin), button4Interrupt, FALLING); // RISING);
+    attachInterrupt(digitalPinToInterrupt(button_3_pin), button3Interrupt, FALLING); // FALLING);
+    attachInterrupt(digitalPinToInterrupt(button_4_pin), button4Interrupt, FALLING); // FALLING);
 }
 
 void Button::ButtonFunction1Address(void (*f)())

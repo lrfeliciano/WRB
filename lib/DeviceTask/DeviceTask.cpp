@@ -321,14 +321,18 @@ void device_button1_function(void)
             prevTime = curTime;
             /* Press counter increament */
             pressCounter++; 
+
+            Serial.printf("[BTN 1] Pressed %u.\r\n",pressCounter);
             /* start status blink task to notify the user that the button is pressed */
             xTaskCreatePinnedToCore(status_blink_task, "StatusBlink", 1024, NULL, DEVICE_TASKPRIORITIES_LED_STATUS, &statusBinkTaskHandle,PRO_CPU_NUM);
+
         }
         /* once it reach the press counter threshold then activate mqtt publish alert */
         if(pressCounter >=  10)
         { 
             /* Publish alert */
             mqtt.publish(device.mqtt.event.cancel.topic,device.mqtt.event.cancel.payload);
+            Serial.printf("[BTN 1] Publish Cancel Alert.\r\n");
             break;
         }
     } 
@@ -342,8 +346,7 @@ void device_button2_function(void)
     uint8_t pressCounter = 0;
     unsigned long prevTime = millis(); 
 
-    /* Check if the button is still activated */
-    while (button.Button2Read())
+    while (button.Button2Read() == button.Button2State())
     {
         /* get current time */
         unsigned long curTime = millis();
@@ -354,6 +357,8 @@ void device_button2_function(void)
             prevTime = curTime;
             /* Press counter increament */
             pressCounter++; 
+
+            Serial.printf("[BTN 2] Pressed %u.\r\n",pressCounter);
             /* start status blink task to notify the user that the button is pressed */
             xTaskCreatePinnedToCore(status_blink_task, "StatusBlink", 1024, NULL, DEVICE_TASKPRIORITIES_LED_STATUS, &statusBinkTaskHandle,PRO_CPU_NUM);
         }
@@ -361,11 +366,21 @@ void device_button2_function(void)
         /* once it reach the press counter threshold then activate mqtt publish alert */
         if(pressCounter >=  10)
         { 
-            /* Publish alert */
-            mqtt.publish(device.mqtt.event.red.topic,device.mqtt.event.red.payload);
+            if(!button.Button2State())
+            {
+                /* Publish CANCEL alert */
+                mqtt.publish(device.mqtt.event.cancel.topic,device.mqtt.event.cancel.payload);
+            }
+            else
+            {
+                /* Publish RED alert */
+                mqtt.publish(device.mqtt.event.red.topic,device.mqtt.event.red.payload);
+            }
+            Serial.printf("[BTN 2] Publish %s Alert.\r\n",button.Button2State() ? "Red" : "Cancel"); 
+            button.Button2InvertState();
             break;
         }
-    }  
+    } 
     pressCounter = 0;
 }
 
@@ -375,8 +390,7 @@ void device_button3_function(void)
     uint8_t pressCounter = 0;
     unsigned long prevTime = millis(); 
  
-    /* Check if the button is still activated */
-    while (!button.Button3Read())
+    while (button.Button3Read() == button.Button3State())
     {
         /* get current time */
         unsigned long curTime = millis();
@@ -387,6 +401,8 @@ void device_button3_function(void)
             prevTime = curTime;
             /* Press counter increament */
             pressCounter++; 
+
+            Serial.printf("[BTN 3] Pressed %u.\r\n",pressCounter);
             /* start status blink task to notify the user that the button is pressed */
             xTaskCreatePinnedToCore(status_blink_task, "StatusBlink", 1024, NULL, DEVICE_TASKPRIORITIES_LED_STATUS, &statusBinkTaskHandle,PRO_CPU_NUM);
         }
@@ -394,13 +410,22 @@ void device_button3_function(void)
         /* once it reach the press counter threshold then activate mqtt publish alert */
         if(pressCounter >=  10)
         { 
-            /* Publish alert */
-            mqtt.publish(device.mqtt.event.red.topic,device.mqtt.event.red.payload);
+            if(button.Button3State())
+            {
+                /* Publish CANCEL alert */
+                mqtt.publish(device.mqtt.event.cancel.topic,device.mqtt.event.cancel.payload);
+            }
+            else
+            {
+                /* Publish RED alert */
+                mqtt.publish(device.mqtt.event.red.topic,device.mqtt.event.red.payload);
+            }
+            Serial.printf("[BTN 3] Publish %s Alert.\r\n", button.Button3State() ? "Cancel" : "Red"); 
+            button.Button3InvertState();
             break;
         }
-    }  
+    } 
     pressCounter = 0;
-    
 }
 
 void device_button4_function(void)
@@ -420,6 +445,8 @@ void device_button4_function(void)
             prevTime = curTime;
             /* Press counter increament */
             pressCounter++; 
+
+            Serial.printf("[BTN 4] Pressed %u.\r\n",pressCounter);
             /* start status blink task to notify the user that the button is pressed */
             xTaskCreatePinnedToCore(status_blink_task, "StatusBlink", 1024, NULL, DEVICE_TASKPRIORITIES_LED_STATUS, &statusBinkTaskHandle,PRO_CPU_NUM);
         }
@@ -429,6 +456,7 @@ void device_button4_function(void)
         { 
             /* Publish alert */
             mqtt.publish(device.mqtt.event.cancel.topic,device.mqtt.event.cancel.payload);
+            Serial.printf("[BTN 4] Publish Cancel Alert.\r\n");
             break;
         }
     }  
